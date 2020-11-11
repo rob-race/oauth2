@@ -110,7 +110,7 @@ module OAuth2
     # @see Client#request
     def request(verb, path, opts = {}, &block)
       configure_authentication!(opts)
-      @client.request(verb, path, opts, &block)
+      @client.client_request(verb, path, opts, &block)
     end
 
     # Make a GET request with the Access Token

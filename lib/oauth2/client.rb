@@ -96,7 +96,7 @@ module OAuth2
     #   code response for this request.  Will default to client option
     # @option opts [Symbol] :parse @see Response::initialize
     # @yield [req] The Faraday request
-    def request(verb, url, opts = {}) # rubocop:disable CyclomaticComplexity, MethodLength, Metrics/AbcSize
+    def client_request(verb, url, opts = {}) # rubocop:disable CyclomaticComplexity, MethodLength, Metrics/AbcSize
       url = connection.build_url(url).to_s
       response = connection.run_request(verb, url, opts[:body], opts[:headers]) do |req|
         req.params.update(opts[:params]) if opts[:params]
@@ -159,7 +159,7 @@ module OAuth2
       opts[:headers].merge!(headers)
       http_method = options[:token_method]
       http_method = :post if http_method == :post_with_query_string
-      response = request(http_method, token_url, opts)
+      response = client_request(http_method, token_url, opts)
       response_contains_token = response.parsed.is_a?(Hash) &&
                                 (response.parsed['access_token'] || response.parsed['id_token'])
 

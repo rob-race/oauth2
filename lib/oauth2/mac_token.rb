@@ -49,7 +49,7 @@ module OAuth2
       opts[:headers] ||= {}
       opts[:headers]['Authorization'] = header(verb, url)
 
-      @client.request(verb, path, opts, &block)
+      @client.client_request(verb, path, opts, &block)
     end
 
     # Get the headers hash (always an empty hash)
